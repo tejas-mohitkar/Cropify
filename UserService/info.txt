@@ -1,0 +1,46 @@
+1. Microservices (with Use and One Additional Email Service)
+ 	Name									Use
+User Service	  		Handles user registration, login (JWT/OAuth2), roles, and profile.
+Product Service	  		Allows farmers/pesticide sellers to list products.
+Cart Service	  		Lets customers add/remove products from their shopping cart.
+Order Service	        Manages order placement, tracking, returns.
+Vehicle Rental Service	Lets vehicle owners list vehicles; farmers can rent them.
+Payment Service	        Handles online payments via Razorpay/Stripe.
+Admin Service	        Admin functionalities — stats, user management, etc.
+Email Service (new)	    Sends confirmation/notification emails for registration, orders, etc.
+
+3. Roles and Entities
+ADMIN
+FARMER
+CUSTOMER
+VEHICLE_OWNER
+PESTICIDE_SELLER
+
+Main Entities
+User: 					Common base for all roles
+Product: 				Base entity for fruits, vegetables, pesticides
+Vehicle: 				Entity for vehicle rentals
+Order: 					Entity for order handling
+CartItem: 				Items in the shopping cart
+Payment: 				Payment records
+EmailLog: 				Email notifications
+
+4. Dashboard Names and Their Use
+   Dashboard													Use Case
+Admin Dashboard						View all users, orders, manage block/unblock, see analytics
+Farmer Dashboard					Add products, view listed items, track orders
+Customer Dashboard					Browse products, manage cart, track orders, payment history
+Vehicle Owner Dashboard				Add/list vehicles, see booking history
+Pesticide Seller Dashboard	
+
+
+5. Controller Names and Their Use (Per Microservice)
+Microservice			Controller Name								Use
+User Service			UserController			Register, login, update profile, get user by ID
+Product Service			ProductController		Add, update, delete, list products
+Cart Service			CartController			Add to cart, remove from cart, view cart items		
+Order Service			OrderController			Place order, get order history, cancel order
+Vehicle Rental Service	VehicleController		List vehicle, update, book, cancel booking
+Payment Service			PaymentController		Create payment, verify status, refund
+Admin Service			AdminController			View analytics, block/unblock users, view logs
+Email Service			EmailController

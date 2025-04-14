@@ -21,78 +21,92 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/admin")
-@CrossOrigin(origins = "http://localhost:3000")
 public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
 
 	// POST
-	@PostMapping("/")
+	@PostMapping("/add")
 	public ResponseEntity<AdminDTO> createAdmin(@RequestBody @Valid AdminDTO adminDto) {
 		AdminDTO createdAdminDTO = this.adminService.addAdmin(adminDto);
 		return new ResponseEntity<>(createdAdminDTO, HttpStatus.CREATED);
 
 	}
 
-	// PUT
-//	@PutMapping("/{adminId}")
-//	public ResponseEntity<AdminDTO> updateAdmin(@Valid @RequestBody AdminDTO adminDto, @PathVariable long adminId) {
-//		AdminDTO updatedAdminDto = this.adminService.updateAdmin(adminDto, adminId);
-//		return ResponseEntity.ok(updatedAdminDto);
-//	}
-
 	// DELETE
-	@DeleteMapping("/{adminId}")
+	@DeleteMapping("/delete/{adminId}")
 	public ResponseEntity<?> deleteAdmin(@PathVariable Long adminId) {
 		this.adminService.deleteAdmin(adminId);
 		return ResponseEntity.ok("deleted");
 	}
 
 	// GET
-	@GetMapping("/{adminId}")
+	@GetMapping("/get/{adminId}")
 	public ResponseEntity<?> getAdminById(@PathVariable Long adminId) {
 		return ResponseEntity.status(HttpStatus.OK).body(this.adminService.getAdmin(adminId));
 	}
 
 	// GET ALL
-	@GetMapping("/")
+	@GetMapping("/getAll")
 	public ResponseEntity<List<AdminDTO>> getAllAdmins() {
 		return ResponseEntity.ok(this.adminService.getAllAdmins());
 	}
 	
 	//---------------------- Count of Seller , Customer , Farmer ------------------------------------
 	
-	@GetMapping("/sellerCount")
-	public ResponseEntity<?> GetCountSeller(){
-		return ResponseEntity.ok(this.adminService.countOfSellers());
-	}
-	
-	@GetMapping("/farmerCount")
-	public ResponseEntity<?> GetCountFarmer(){
-		return ResponseEntity.ok(this.adminService.countOfFarmers());
-	}
-	
-	@GetMapping("/customerCount")
-	public ResponseEntity<?> GetCountCustomer(){
-		return ResponseEntity.ok(this.adminService.countOfCustomers());
-	}
-	
-	// ---------------------------- Count Of Farmer Products , agri products , machines -----------------------------
-	
-	@GetMapping("/agriProdCount")
-	public ResponseEntity<?> GetAgriProductCount(){
-		return ResponseEntity.ok(this.adminService.agriProductCount());
-	}
-	
-	@GetMapping("/farmerProdCount")
-	public ResponseEntity<?> GetFarmerProductCount(){
-		return ResponseEntity.ok(this.adminService.farmProductCount());
-	}
-	
-	@GetMapping("/machineCount")
-	public ResponseEntity<?> GetMachineCount(){
-		return ResponseEntity.ok(this.adminService.machineCount());
-	}
+//	@GetMapping("/sellerCount")
+//	public ResponseEntity<?> GetCountSeller(){
+//		return ResponseEntity.ok(this.adminService.countOfSellers());
+//	}
+//	
+//	@GetMapping("/farmerCount")
+//	public ResponseEntity<?> GetCountFarmer(){
+//		return ResponseEntity.ok(this.adminService.countOfFarmers());
+//	}
+//	
+//	@GetMapping("/customerCount")
+//	public ResponseEntity<?> GetCountCustomer(){
+//		return ResponseEntity.ok(this.adminService.countOfCustomers());
+//	}
+//	
+//	// ---------------------------- Count -----------------------------
+//	
+//	@GetMapping("/agriProdCount")
+//	public ResponseEntity<?> GetAgriProductCount(){
+//		return ResponseEntity.ok(this.adminService.agriProductCount());
+//	}
+//	
+//	@GetMapping("/farmerProdCount")
+//	public ResponseEntity<?> GetFarmerProductCount(){
+//		return ResponseEntity.ok(this.adminService.farmProductCount());
+//	}
+//	
+//	@GetMapping("/machineCount")
+//	public ResponseEntity<?> GetMachineCount(){
+//		return ResponseEntity.ok(this.adminService.machineCount());
+//	}
+//	
+//	// ---------------------------- Dashboard analysis -----------------------------
+//	@GetMapping("/totalorders")
+//	public ResponseEntity<?> totalOrders(){
+//		return ResponseEntity.ok(this.adminService.machineCount());
+//	}
+//	
+//	@GetMapping("/machineCount")
+//	public ResponseEntity<?> totalOrderExpence(){
+//		return ResponseEntity.ok(this.adminService.machineCount());
+//	}
+//	
+//	// ---------------------------- Dashboard analysis -----------------------------
+//	@GetMapping("/{farmerId}/allProducts")
+//	public ResponseEntity<?> getFarmerWithProducts(){
+//		return ResponseEntity.ok(this.adminService.machineCount());
+//	}
+//	
+//	@GetMapping("/{serllerId}/allSeller")
+//	public ResponseEntity<?> sellerWithProducts(){
+//		return ResponseEntity.ok(this.adminService.machineCount());
+//	}
 
 }

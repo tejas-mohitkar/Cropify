@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 
 import com.cropify.cartservice.dto.CartDTO;
 import com.cropify.cartservice.dto.CartFarmProductDTO;
-import com.cropify.cartservice.service.CartFarmerProductService;
+import com.cropify.cartservice.service.CartService;
 
 import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
-public class CartFarmerProductServiceImpl implements CartFarmerProductService{
+public class CartFarmerProductServiceImpl implements CartService{
 
 	@Override
 	public Long addFarmerProductToCart(Long farmerId, CartFarmProductDTO cartFarmProductDTO) {

@@ -1,30 +1,26 @@
 package com.cropify.UserService.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
-import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails.Address;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Table(name = "users")
-@Getter
-@Setter
+@Table(name = "UsersTable")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -34,27 +30,33 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "first_name")
     private String firstName;
-    
-    @Column(nullable = false, length = 100)
+
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column(unique = true, nullable = false)
-    private String email;
+    @Column(name = "User_Role")
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
 
-    @Column(unique = true, nullable = false, length = 15)
-    private String mobile;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Address", referencedColumnName = "addressId")
+    private Address address;
 
-    @Column(nullable = false)
-    private String password;
+    private LocalDate createdDate;
 
-    private LocalDate joinDate;
+    private String createdBy;
 
-    private LocalDateTime createdAt;
+    private LocalDate modifiedDate;
 
-    private LocalDateTime updatedAt;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Address> addresses;
+    private String modifiedBy;
+    
+    public enum UserRole {
+        ADMIN,
+        FARMER,
+        CUSTOMER,
+        VEHICLE_OWNER,
+        PESTICIDE_SELLER
+    }
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.cropify.orderservice.dao.OrderFarmProductDetailsRepository;
 import com.cropify.orderservice.dto.OrderDTO;
 import com.cropify.orderservice.dto.OrderFarmProductDetailsDTO;
 import com.cropify.orderservice.service.OrderService;
@@ -16,7 +15,7 @@ import jakarta.transaction.Transactional;
 public class OrderFarmProductDetailsServiceImpl implements OrderService {
 
 //    @Autowired
-    private OrderFarmProductDetailsRepository orderFarmProductDetailsRepository;
+//    private OrderFarmProductDetailsRepository orderFarmProductDetailsRepository;
 //
 //    @Autowired
 //    private CartFarmProductRepository cartFarmProductRepository;
@@ -33,9 +32,9 @@ public class OrderFarmProductDetailsServiceImpl implements OrderService {
     private String customGeneratedId;
 
     public String customeIdGenerationForFarmProductOrders() {
-        int count = orderFarmProductDetailsRepository.findDistinctOrderIdForIdGeneration() + 1;
-        customGeneratedId = "of" + count;
-        return customGeneratedId;
+//        int count = orderFarmProductDetailsRepository.findDistinctOrderIdForIdGeneration() + 1;
+//        customGeneratedId = "of" + count;
+        return "";
     }
 
 	@Override

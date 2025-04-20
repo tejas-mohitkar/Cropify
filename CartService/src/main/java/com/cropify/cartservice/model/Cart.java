@@ -1,46 +1,116 @@
 package com.cropify.cartservice.model;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 @Entity
-@Table(name = "cart")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Table(name = "CartTable")
 public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartId;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId; // Store userId directly
+    @Column(name = "user_id", columnDefinition = "BIGINT")
+    private Long userId;
 
-    @Column(name = "product_id", nullable = false)
-    private Long productId; // Store productId directly
+    @Column(name = "product_id", columnDefinition = "BIGINT")
+    private Long productId;
 
-    @Column(nullable = false)
-    private Integer quantity;
+    private int quantity;
 
-    private LocalDateTime addedAt;
+    @Column(name = "price_at_time", precision = 10, scale = 2)
+    private BigDecimal priceAtTime;
+
+    private LocalDateTime createdAt;
+    
     private LocalDateTime updatedAt;
 
-    @PrePersist
-    protected void onCreate() {
-        addedAt = updatedAt = LocalDateTime.now();
+    @Enumerated(EnumType.STRING)
+    private CartStatus status;
+    
+
+public enum CartStatus {
+    PENDING,    // Cart is created but not yet processed
+    COMPLETED,  // Cart is confirmed and order is placed
+    CANCELLED,  // Cart is cancelled
+    ABANDONED,  // Cart is abandoned by the user
+    FAILED;     // Cart checkout failed (e.g., payment failure)
+}
+    
+    
+    // Getters and Setters
+
+    public Long getCartId() {
+        return cartId;
     }
 
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public BigDecimal getPriceAtTime() {
+        return priceAtTime;
+    }
+
+    public void setPriceAtTime(BigDecimal priceAtTime) {
+        this.priceAtTime = priceAtTime;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public CartStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CartStatus status) {
+        this.status = status;
     }
 }

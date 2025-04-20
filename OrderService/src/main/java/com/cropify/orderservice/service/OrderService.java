@@ -5,7 +5,7 @@ import java.util.List;
 import com.cropify.orderservice.dto.OrderDTO;
 import com.cropify.orderservice.dto.OrderFarmProductDetailsDTO;
 
-public interface OrderFarmProductDetailsService {
+public interface OrderService {
     String addFarmProductToCart(Long farmerId, Double totalPrice);
 
     List<OrderDTO> getAllOrder(Long customerId);

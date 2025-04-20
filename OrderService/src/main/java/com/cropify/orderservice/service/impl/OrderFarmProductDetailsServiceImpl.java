@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 import com.cropify.orderservice.dao.OrderFarmProductDetailsRepository;
 import com.cropify.orderservice.dto.OrderDTO;
 import com.cropify.orderservice.dto.OrderFarmProductDetailsDTO;
-import com.cropify.orderservice.service.OrderFarmProductDetailsService;
+import com.cropify.orderservice.service.OrderService;
 
 import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
-public class OrderFarmProductDetailsServiceImpl implements OrderFarmProductDetailsService {
+public class OrderFarmProductDetailsServiceImpl implements OrderService {
 
 //    @Autowired
     private OrderFarmProductDetailsRepository orderFarmProductDetailsRepository;

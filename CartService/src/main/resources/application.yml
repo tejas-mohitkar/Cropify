@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: cropify-cart-service
+
+  datasource:
+    url: jdbc:mysql://localhost:3307/Cropify
+    username: root
+    password: 8411
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8081

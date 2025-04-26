@@ -101,7 +101,7 @@ public class OrderController {
         @ApiResponse(responseCode = "404", description = "Order not found",
             content = @Content(schema = @Schema(implementation = Exception.class)))
     })
-    @DeleteMapping("/{orderId}")
+    @DeleteMapping("/{orderId}/cancel")
     public ResponseEntity<Void> cancelOrder(@PathVariable Long orderId) {
     	return null;
     }

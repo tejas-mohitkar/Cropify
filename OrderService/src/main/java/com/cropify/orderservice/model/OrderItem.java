@@ -1,48 +1,58 @@
 package com.cropify.orderservice.model;
 
-import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "order_itemsTable")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Entity
+@Table(name = "OrderItemsTable")
 public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderItemId;
 
-    @Column(name = "product_id", columnDefinition = "BIGINT")
+    @Column(nullable = false)
+    private Long orderId;
+
+    @Column(nullable = false)
     private Long productId;
-    
-    @Column(name = "prduct_name")
+
+    @Column(nullable = false)
     private String productName;
 
-    @Column(name = "product_price", precision = 10, scale = 2)
-    private BigDecimal productPrice;
+    @Column(nullable = false)
+    private Double productPrice;
 
-    private int quantity;
+    @Column(nullable = false)
+    private Integer quantity;
 
-    @Column(name = "total_price")
-    private BigDecimal totalPrice;
+    @Column(nullable = false)
+    private Double totalPrice;
+    
+    @Enumerated(EnumType.STRING)
+    private ProductCategory category;
 
-    // Many order items belong to one order
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+    private Timestamp createdAt;
+    
+    
+    
+    public enum ProductCategory {
+        VEGETABLE,
+        FRUIT,
+        PESTICIDE,
+        EQUIPMENT,
+        SEED,
+        FERTILIZER
+    }
+    
 }

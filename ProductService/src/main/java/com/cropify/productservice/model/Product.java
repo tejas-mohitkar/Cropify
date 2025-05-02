@@ -1,7 +1,6 @@
 package com.cropify.productservice.model;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,57 +10,56 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+@Data
 @Entity
 @Table(name = "ProductTable")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
 
-    @Column(name = "prduct_name")
+    @Column(nullable = false)
     private String productName;
 
-    @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "price", precision = 10, scale = 2)
-    private BigDecimal price;
+    @Column(nullable = false)
+    private Double price;
 
-    private int quantity;
+    @Column(nullable = false)
+    private Integer quantity;
 
     @Enumerated(EnumType.STRING)
     private ProductCategory category;
 
-    @Column(name = "user_id", columnDefinition = "BIGINT")
-    private Long userId;
+    private String expiryDate;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole ownerRole;
 
-    @Column(name = "is_available")
+    @Column(nullable = false)
     private Boolean isAvailable;
 
-    private LocalDateTime createdAt;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
-    private LocalDateTime updatedAt;
-
+    // ❌ Remove @ManyToOne
+    // ✅ Store userId directly instead
+    @Column(nullable = false)
+    private Long userId;
+    
+    
     
     public enum UserRole {
         VEHICLE_OWNER,
         PESTICIDE_SELLER,
         FARMER
     }
-
+//
     public enum ProductCategory {
         VEGETABLE,
         FRUIT,
@@ -70,5 +68,5 @@ public class Product {
         SEED,
         FERTILIZER
     }
-
+    
 }

@@ -1,4 +1,4 @@
-package com.cropify.UserService.model;
+package com.cropify.vehiclerentalservice.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,26 +10,25 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "AddressTable")
-public class Address {
+@Table(name = "VehiclesTable")
+public class Vehicle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long addressId;
+    private Long vehicleId;
 
     @Column(nullable = false)
-    private String address1;
-
-    private String address2;
+    private String vehicleName;
 
     @Column(nullable = false)
-    private String city;
+    private String vehicleType;
 
     @Column(nullable = false)
-    private String state;
-
-    private String country;
+    private Double rentalPricePerDay;
 
     @Column(nullable = false)
-    private String pincode;
+    private Boolean isAvailable;
+
+    @Column(nullable = false)
+    private Long ownerId;
 }

@@ -1,74 +1,65 @@
 package com.cropify.paymentservice.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import java.sql.Timestamp;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
 
-@Entity
-@Table(name = "paymentsTable")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Entity
+@Table(name = "PaymentsTable")
 public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentId;
 
-    @Column(name = "order_id", columnDefinition = "BIGINT")
-    private Long orderId;       // Stored as String because it’s coming from Order microservice
+    @Column(nullable = false)
+    private Long orderId;
 
-    @Column(name = "user_id", columnDefinition = "BIGINT")
-    private Long userId;        // Stored as String because it’s coming from User microservice
-
+    @Column(nullable = false)
+    private Long userId;
+    
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private PaymentMode paymentMode;
 
-    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    
     private PaymentStatus paymentStatus;
 
-    @Column(name = "transaction_id")
     private String transactionId;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "payment_gateway")
-    private PaymentGateway paymentGateway;
-
-    @Column(name = "amount", precision = 10, scale = 2)
-    private BigDecimal amount;
+    private String paymentGateway;
+    
+    @Column(nullable = false)
+    private Double amount;
 
     private String currency;
-
-    private LocalDateTime createdAt;
+    private Timestamp createdAt;
     
-    public enum PaymentMode {
-        CREDIT_CARD,  // Payment made using a credit card
-        DEBIT_CARD,   // Payment made using a debit card
-        NET_BANKING,  // Payment made through internet banking
-        UPI,          // Payment made via UPI
-        WALLET,       // Payment made using digital wallets (e.g., Paytm, Google Pay)
-        CASH_ON_DELIVERY; // Payment made at the time of delivery
-    }
     
-
+    
+ // Payment Status
     public enum PaymentStatus {
-    	PENDING,   // Payment is pending and not yet completed
-    	SUCCESS,   // Payment was successful
-    	FAILED,    // Payment failed
-    	CANCELLED, // Payment was cancelled
-    	REFUNDED;  // Payment was refunded
+        PENDING,
+        PAID,
+        FAILED
     }
     
-
-    public enum PaymentGateway {
-    	RAZORPAY,
-    	STRIPE,
-    	PAYTM,
-    	PAYU,
-    	CASH_FREE,
-    	OTHER
-}
+ // Payment Mode
+    public enum PaymentMode {
+        CASH,
+        CARD,
+        UPI,
+        NET_BANKING
+    }
+    
+    
 }

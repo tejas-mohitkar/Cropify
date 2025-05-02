@@ -1,62 +1,58 @@
 package com.cropify.UserService.model;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+@Data
 @Entity
 @Table(name = "UsersTable")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Column(name = "first_name")
+    @Column(nullable = false)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(nullable = false)
     private String lastName;
 
-    @Column(name = "User_Role")
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Address", referencedColumnName = "addressId")
+    @ManyToOne
+    @JoinColumn(name = "addressId")
     private Address address;
 
-    private LocalDate createdDate;
-
+    private Timestamp createdDate;
     private String createdBy;
-
-    private LocalDate modifiedDate;
-
+    private Timestamp modifiedDate;
     private String modifiedBy;
     
-    public enum UserRole {
-        ADMIN,
-        FARMER,
-        CUSTOMER,
-        VEHICLE_OWNER,
-        PESTICIDE_SELLER
-    }
+    
+    
+    
+
+ // User Role
+ public enum UserRole {
+     FARMER,
+     CUSTOMER,
+     SELLER,
+     VEHICLE_PROVIDER,
+     ADMIN
+ }
+    
 }
